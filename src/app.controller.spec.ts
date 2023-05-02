@@ -42,15 +42,17 @@ describe('AppController', () => {
         })
       ],
       controllers: [AppController],
-      providers: [ConfigModule, ConfigService, DataSource, AppService],
+      providers: [ConfigModule, ConfigService, AppService],
     }).compile();
 
     appController = app.get<AppController>(AppController);
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Hello World!"', async () => {
+      const actual = await appController.getHello();
+      const wanted = 'PostgreSQL 15.2, compiled by Visual C++ build 1914, 64-bit'
+      expect(actual).toBe(wanted);
     });
   });
 });
